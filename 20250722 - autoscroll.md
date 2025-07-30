@@ -11,7 +11,7 @@
 
 deepseek说为什么不用scrollView结构直接搞定scroll这一部分呢。
 
-'''
+```
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -81,7 +81,7 @@ public class ConstantSpeedScroll : MonoBehaviour
         }
     }
 }
-'''
+```
 
 这个版本跟自己改的有点不一样啦。用deepseek跑了两版融了一下…
 没写两个StartCoroutine，写了一个:
