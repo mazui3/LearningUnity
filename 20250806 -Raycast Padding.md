@@ -1,0 +1,2 @@
+才看到Raycast Padding这么个好东西。可以拓宽或者缩小Image（比如跟Button一起组成component）的范围。
+Padding变为负数就能拓宽。
