@@ -13,6 +13,7 @@ SubPanel是做成了一个UIPanel class，同时自带一个UIPanelData的class�
 然后在closeButton method里面mData.CloseCallBack?.Invoke();
 
 在Main里面这么传它。
+```
 theBtn.onClicked.AddListener(() =>
 {
   SubPanelData mData = new SubPanelData()
@@ -23,3 +24,4 @@ theBtn.onClicked.AddListener(() =>
   }
   UIKit.OpenPanel<SubPanelData>(mData);
 });
+```
