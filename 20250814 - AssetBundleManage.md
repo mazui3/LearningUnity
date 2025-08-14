@@ -11,5 +11,14 @@ if (null != sr)
 在代码中看有特殊处理shader？
 
 看到有行注释说“Spine加载材质可能延迟，所有我们需要在这种情况下等待下在去赋值shader”\
-pl.transform.DOScale(pl.transform.localScale, 0.1f).OnComplete(//修改);
+```
+pl.transform.DOScale(pl.transform.localScale, 0.1f).OnComplete(() => 
+  {
+      if (sr[k].sharedMaterial==null)
+      {
+          sr[k].sharedMaterial = new Material("skeleton_Material");
+          sr[k].sharedMaterial.shader = Shader.Find("Spine/Skeleton");
+      }          
+});
+```
 还用dotween做了，牛逼。
