@@ -4,6 +4,11 @@
 Double-checked locking
 >https://en.wikipedia.org/wiki/Double-checked_locking
 
+读wiki感觉double checked locking跟singleton是两个东西。\
+但在前辈的代码里读到的是下面这个ai gen出来的答案类似。\
+以double checked locking的方式来完成？加固？singleton这个pattern？\
+有空再好好看一下。\
+以及ai还说了volatile这个keyword，前辈的代码也妹说呐。
 
 Double-Checked Locking (DCL) in C# is a design pattern used to implement thread-safe lazy initialization, typically for Singleton patterns, while minimizing the overhead of locking.\
 The core idea of DCL involves:
@@ -45,4 +50,5 @@ public sealed class Singleton
 ```
 
 Importance of volatile:\
-The volatile keyword is crucial in DCL in C# because it prevents compiler and CPU optimizations that could reorder memory operations. Without volatile, a partially constructed object might be visible to other threads, leading to race conditions and incorrect behavior. volatile ensures that reads and writes to the _instance variable are always performed directly from main memory, preventing stale values from being read from CPU caches.
+The volatile keyword is crucial in DCL in C# because it prevents compiler and CPU optimizations that could reorder memory operations. \
+Without volatile, a partially constructed object might be visible to other threads, leading to race conditions and incorrect behavior. volatile ensures that reads and writes to the _instance variable are always performed directly from main memory, preventing stale values from being read from CPU caches.
