@@ -16,7 +16,10 @@ ScrollView - withScrollRect
 
 找到了第一个child Object再GetChild去找gameObject。\
 有了gameObject，拿到它的anchoredPosition.y，用DoTween做一个滑动。\
-先DOKill.\
+先DOKill.
+
+这里的代码，content指的是作为父级的scroll整合gameObject，selectTrans是scroller里面小的那个cell。\
+我们移动scroller到cell的位置上去。
 ```
 Content.GetComponent<RectTransform>().DOAnchorPosY(-(selectTrans.GetComponent<RectTransform>().anchoredPosition.y + 30), 0.2f);
 ```
