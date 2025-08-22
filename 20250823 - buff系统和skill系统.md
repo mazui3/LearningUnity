@@ -9,7 +9,7 @@ BuffB是更改属性，更改属性后会call **SkillManager.handleSkillData**�
 然后循环了。
 
 想到的处理方法是有这么一个function，**SkillManager.handlePiecesTargetSkill(pl, buffData.skillID)**\
-只处理对应的skill，而不是所有的skill。就是buffB不该call到skillA。\
+只处理对应的skill，而不是所有的skill。就是buffB不该call到skillA。
 
 看一下为什么BuffB得用上skillManager.handleSkillData。\
 BuffB给pieceLogic增添了dynamicFunction，然后用skillManager处理dynamicFunction了吧。\
