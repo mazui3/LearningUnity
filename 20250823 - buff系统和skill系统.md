@@ -15,3 +15,5 @@ BuffB是更改属性，更改属性后会call **SkillManager.handleSkillData**�
 BuffB给pieceLogic增添了dynamicFunction，然后用skillManager处理dynamicFunction了吧。\
 dynamicFunction像是给pieceLogic附加的属性。\
 如果pl拥有某一个dynamicFunctionC，那在处理所有属性的时候，跑到C时处理一下，这样。
+
+buff系统里看起来只处理dynamicFunction（附加的属性）相关。
