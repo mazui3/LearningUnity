@@ -30,7 +30,7 @@ Cocoapods出问题了。
 
 按这个改了很久，先是ruby太老了，装上后cocoapods还有问题。\
 然后改了很久ruby和cocoapods，把最旧的ruby删掉了（可能被默认用了？）。重启了unity，好了。\
-重启unity也是必要条件之一可能。\
+重启unity也是必要条件之一可能。
 
 报Xcode里有些值找不到了，重新生成xCode相关的文件又没事了。\
 然后就是……Brust compiler出问题了。
