@@ -17,3 +17,5 @@ implementation 'com.adjust.sdk:adjust-android:5.4.4' // Assets/Adjust/Native/Edi
 ```
 _com.adjust.sdk:adjust-android:5.4.4_ 是要加的dependencies class,而后面的那个是插件要的dependencies说明地址.\
 在dependencies.xml中已经讲了要添加的内容。
+
+发现在external dependency manager -> android resolver中run resolve会自动修改mainTemplate.gradle（嗯？）
