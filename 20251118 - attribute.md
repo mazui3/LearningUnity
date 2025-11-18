@@ -86,3 +86,19 @@ public class ClassA
     // 通过反射检查友元关系，决定是否允许访问
 }
 ```
+
+看班码的用法有
+```cs
+[FriendOf(typeof(CoffeeDeviceComponent))]
+public static class CoffeeDeviceSystem{}
+
+[FriendOfAttribute(typeof(theGame.PlayerData))]
+public static class LoginHelper{}
+
+[FriendOfAttribute(typeof(theGame.Client.Restaurant04ViewComponent))]
+[FriendOfAttribute(typeof(theGame.Client.Restaurant05ViewComponent))]
+[FriendOfAttribute(typeof(theGame.Client.Restaurant03ViewComponent))]
+[FriendOfAttribute(typeof(theGame.Client.Restaurant02ViewComponent))]
+public class CustomerWaitUI_EventHandler : AEvent<StartCreateWaitUI>{}
+```
+引用竟有618处!
