@@ -120,7 +120,7 @@ public void Publish<T>(Scene scene, T a) where T : struct
 
 ### 步骤详解
 
-#### [cite_start]1. 查找事件处理器列表 [cite: 121]
+#### 1. 查找事件处理器列表 [cite: 121]
 
   * `if (!this.allEvents.TryGetValue(typeof (T), out iEvents))` [cite: 121]
       * **作用：** 尝试从 `allEvents` 字典中，通过事件消息的类型 `typeof(T)` 作为键，查找所有注册的事件处理器信息列表 (`iEvents`)[cite: 121].
@@ -156,7 +156,33 @@ public void Publish<T>(Scene scene, T a) where T : struct
       * **关键点：** `.Coroutine()` [cite: 126] [cite_start]的使用表明事件处理器的 `Handle` 方法很可能是一个 `async` 方法或返回一个 `ETTask` [cite: 118]。通过调用 `.Coroutine()`，系统**启动**了这个异步操作，但**不会等待**它完成。
       * **同步分发：** 这就是这个 `Publish` 函数被称为“同步分发”的原因：**分发本身是同步的（立即遍历所有监听者）**，但它不对监听者内部的异步操作做等待。
 
-!这个地方已经处理事件哩！
+!这个地方已经处理事件哩！\
+看了眼，要挂的event interface会自带一个handle函数。
+
+```cs
+public abstract class AEvent<A>: IEvent where A: struct
+{
+   public Type Type
+   {
+      get
+      {
+         return typeof (A);
+      }
+   }
+   protected abstract ETTask Run(Scene scene, A a);
+   public async ETTask Handle(Scene scene, A a)
+   {
+      try
+      {
+         await Run(scene, a);
+      }
+      catch (Exception e)
+      {
+         Log.Error(e);
+      }
+   }
+}
+```
 
 -----
 
