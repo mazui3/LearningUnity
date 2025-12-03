@@ -73,13 +73,13 @@
 
 ---
 
-[cite_start]好的，我来为您详细拆解和讲解 `EventSystem` 中用于同步事件分发的 `Publish<T>` 函数 [cite: 121]。
+好的，我来为您详细拆解和讲解 `EventSystem` 中用于同步事件分发的 `Publish<T>` 函数 [cite: 121]。
 
-[cite_start]这个函数负责将一个事件（通常是一个 `struct` 类型的消息）广播给所有订阅了该事件的处理器 [cite: 112, 121, 122]。
+这个函数负责将一个事件（通常是一个 `struct` 类型的消息）广播给所有订阅了该事件的处理器 [cite: 112, 121, 122]。
+
+_这个项目里基本只在用publish函数。_
 
 -----
-
-这个项目里基本只在用publish函数。
 
 ## 📣 `Publish<T>(Scene scene, T a)` 函数拆解
 
@@ -155,6 +155,8 @@ public void Publish<T>(Scene scene, T a) where T : struct
       * **作用：** 调用处理器中的实际逻辑 `Handle` 方法，并传入当前的 `scene` 和事件消息 `a` [cite: 126]。
       * **关键点：** `.Coroutine()` [cite: 126] [cite_start]的使用表明事件处理器的 `Handle` 方法很可能是一个 `async` 方法或返回一个 `ETTask` [cite: 118]。通过调用 `.Coroutine()`，系统**启动**了这个异步操作，但**不会等待**它完成。
       * **同步分发：** 这就是这个 `Publish` 函数被称为“同步分发”的原因：**分发本身是同步的（立即遍历所有监听者）**，但它不对监听者内部的异步操作做等待。
+
+!这个地方已经处理事件哩！
 
 -----
 
