@@ -147,3 +147,30 @@
     "noEngineReferences": false
 }
 ```
+
+这份文件是 **Unity 程序集定义文件（Assembly Definition File）**，它的作用是将项目中的 C\# 脚本划分成一个独立的编译单元（即一个 `.dll` 文件），这样可以优化编译速度、隔离代码依赖，并在这个项目中用于实现**热更新**所需的代码分离。
+
+以下是配置项的详细解释：
+
+| 配置项 | 值 | 含义及重要性 |
+| :--- | :--- | :--- |
+| **`name`** | `"Unity.Model.Codes"` | **程序集名称**。这是编译后生成的 `.dll` 文件的名字（例如 `Unity.Model.Codes.dll`），也是在 `CodeLoader.txt` 中被查找和加载的程序集名称。 |
+| **`rootNamespace`** | `"ET"` | **根命名空间**。在该程序集下的所有 C\# 脚本，如果没有明确指定命名空间，默认都会使用 `ET` 作为其根命名空间。这与你之前代码中看到的 `ET.Entry.Start` 相呼应，表明这是一个基于 **ET 框架**的项目。 |
+| **`references`** | `[...]` | **依赖的程序集**。这个程序集编译时需要引用的其他程序集：<br>1. **`Unity.ThirdParty`**: 可能是第三方库的代码。<br>2. **`Unity.Core`**: 可能是框架或核心工具代码。<br>3. **`Unity.Mathematics`**: 引用了 Unity 的高性能数学库。 |
+| **`includePlatforms`** | `["Editor"]` | **包含平台**。**这是最关键的设置之一。** 它表示这个程序集只应该在 **Unity 编辑器环境**下被编译和引用。这与 `CodeLoader` 中 `if (Define.EnableCodes)` 的逻辑相符，用于**开发阶段**快速迭代。 |
+| **`excludePlatforms`** | `[]` | **排除平台**。空数组表示不主动排除任何平台。 |
+| **`allowUnsafeCode`** | `true` | **允许不安全代码**。设置为 `true` 表示该程序集内的 C\# 脚本可以使用 `unsafe` 关键字来操作指针。这在底层优化或与原生代码交互时很有用。 |
+| **`defineConstraints`** | `["ENABLE_CODES"]` | **定义约束**。**这是另一个关键设置。** 它要求只有当 C\# 预处理符号 **`ENABLE_CODES`** 被定义时，这个程序集才会被编译。这直接控制了 `CodeLoader.txt` 中所区分的两种模式：<br>1. **开发模式 (ENABLE\_CODES 开启)**：编译并加载此程序集。<br>2. **热更新模式 (ENABLE\_CODES 关闭)**：不编译此程序集，转而加载外部的 Model.dll/Hotfix.dll。 |
+| **`autoReferenced`** | `true` | **自动引用**。设置为 `true` 意味着其他新的 `.asmdef` 文件创建时，会自动引用这个程序集，除非它们手动排除了它。 |
+| **`noEngineReferences`** | `false` | **无引擎引用**。设置为 `false` 意味着该程序集**会**引用 `UnityEngine.dll`，可以使用 Unity 引擎的 API。 |
+
+### 总结：这份文件的目的
+
+这份 `Unity.Model.Codes.asmdef` 文件与 `CodeLoader` 配合，清晰地定义了项目的**开发模式**：
+
+1.  **分离代码：** 将 Model 层（业务逻辑）代码分离出来，形成一个独立的 DLL。
+2.  **平台限制：** 确保这个 DLL **只在编辑器下可用**（`"includePlatforms": ["Editor"]`）。
+3.  **模式控制：** 通过 `ENABLE_CODES` 宏来控制它的编译，只有在开发模式下才会编译并使用这个 DLL。
+4.  **源代码位置：** 这个 `.asmdef` 文件所在的文件夹及其子文件夹中的所有 C\# 代码，都将作为 **Model 逻辑**被编译到 `Unity.Model.Codes.dll` 中。
+
+要阅读这部分代码，你就需要查看这个 `.asmdef` 文件所在目录下的所有 C\# 脚本。
