@@ -1,5 +1,22 @@
 在打断点的时候真的很方便欸（绝望的debug人发言）。
 
+```cs
+[SerializeField]
+private int theCount = 0;
+public int TheCount
+{
+    get { return theCount; }
+    set
+    {
+        theCount = value;
+        if (theCount < 0)
+        {
+            theCount = 0;
+        }
+        //还可以加入如果condition meet, do something的method,好方便啊
+    }
+}
+```
 以至于觉得常见重要值都可以全部private theValue，public getter&setter TheValue。\
 计算错误的时候不需要全范围去找所有的加减tirgger。
 
