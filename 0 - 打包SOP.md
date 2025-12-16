@@ -1,0 +1,6 @@
+- 版本号是否跟上一次+1
+- Script Define Symbols是否有不同channel用的varaible，跟当前channel是否吻合
+- project setting中的default icon,名字是否还存在
+- Scripting Backend - IL2CPP
+- 是否需要split application binary
+- 包打不出来可以external dependency manager, package manager resolver把main gradle template default一下
