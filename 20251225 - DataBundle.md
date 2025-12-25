@@ -79,3 +79,10 @@ public class DataBundle
 
 }
 ```
+
+使用时是这样的.
+```cs
+DataBundle db = DataBundle.getDefaultBundle();
+db.setValue("theKey", theValue);
+PiecesEventManager.OnPiecesEvent(PEvent.PEvent_hurt, db);
+```
