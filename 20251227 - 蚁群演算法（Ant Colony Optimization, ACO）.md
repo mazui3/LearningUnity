@@ -1,4 +1,5 @@
 **蚁群演算法（Ant Colony Optimization, ACO）** 是一种非常经典的“群体智能”启发式算法。
+>https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms
 
 如果说 A* 算法是靠“数学估算”来找路，那么蚁群算法就是模仿**大自然的集体智慧**。
 
@@ -27,6 +28,16 @@
 * **信息素挥发（Evaporation）：** 这是蚁群算法的**精髓**。随着时间推移，所有路径上的信息素都会自动减少。
 * *为什么需要挥发？* 如果不挥发，第一只蚂蚁走出的烂路会一直保留信息素，导致算法陷入“局部最优”，无法发现更好的路。**挥发让算法有了“遗忘”能力，去尝试新的可能。**
 
+Pseudocode.
+```
+procedure ACO_MetaHeuristic is
+    while not terminated do
+        generateSolutions()
+        daemonActions()
+        pheromoneUpdate()
+    repeat
+end procedure
+```
 
 * **启发因子：** 除了看信息素，虚拟蚂蚁还会看“这条路看起来有多近”（类似 A* 算法的直觉）。
 
