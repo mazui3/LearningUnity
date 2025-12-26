@@ -1,4 +1,4 @@
-**蚁群演算法（Ant Colony Optimization, ACO）** 是一种非常经典的“群体智能”启发式算法。
+**蚁群演算法（Ant Colony Optimization）** 是一种非常经典的“群体智能”启发式算法。
 >https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms
 
 如果说 A* 算法是靠“数学估算”来找路，那么蚁群算法就是模仿**大自然的集体智慧**。
