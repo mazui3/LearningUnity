@@ -1,6 +1,6 @@
-PlayerPrefs is a class that stores Player preferences between game sessions. It can store string, float and integer values into the user's platform registry.
+PlayerPrefs is a class that stores Player preferences between game sessions. It can store string, float and integer values into the user's platform registry(主程哥也把playerPrefs叫做注册表).
 
-Unity stores PlayerPrefs in a local registry(主程哥也把playerPrefs叫做注册表), without encryption. Don't use PlayerPrefs data to store sensitive data.
+Unity stores PlayerPrefs in a local registry, without encryption. Don't use PlayerPrefs data to store sensitive data.
 
 [Unity自带的，储存用户数据的class。](https://docs.unity3d.com/6000.3/Documentation/ScriptReference/PlayerPrefs.html)
 
@@ -25,3 +25,20 @@ _注册表和存档的区别是什么_
 
 >注册表数据主要存在 C:\Windows\System32\config 系统目录下\
 >用于记录软件配置、键值，而游戏存档、文档等数据文件通常分散在用户文件夹（如 AppData、Documents）中。
+
+---
+想做这么一个事情。
+
+游戏想接俄罗斯的平台，游戏本身使用了playfab作为后台，而俄罗斯无法使用playfab。
+
+运营说想快速上线把游戏跑通，所以存档先全走本地数据，而不走playfab上放的云存档。
+
+班游是商业抽卡游戏，最值钱的就是抽卡。问了主程哥如果玩家物理意义把有资源的存档拷贝，抽不到喜欢的角色再把存档覆盖怎么办。
+
+主程哥说给游戏加时间戳。在注册表里加一个，在存档里加一个，如果两者不匹配，就算有问题。
+
+昨天自己想的是（以为存储信息的地方只有一个）在存档里加时间戳，然后也读取存档这个文件的最后更新时间。如果两者不匹配，就是有问题。
+
+运营说暂时不处理。
+
+……不处理吗。
