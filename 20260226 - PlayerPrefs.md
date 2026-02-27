@@ -17,13 +17,11 @@ float volume = PlayerPrefs.GetFloat("volume");
 string player = PlayerPrefs.GetString("username");
 
 bool val = PlayerPrefs.GetInt("PropName") == 1 ? true : false;
-
-if (PlayerPrefs.HasKey("currentXP"))
-{
-    currentXP = PlayerPrefs.GetInt("currentXP");
-}
 ```
 
 _注册表和存档的区别是什么_
->注册表是Windows系统用于存储硬件、软件配置和用户设置的中央数据库，实时影响系统运行；而存档（Archive）是指将文件、数据归档保存，侧重于历史数据备份或持久化存储，不直接参与系统当前运行。注册表是“配置数据”，存档是“数据文件”。
->注册表数据主要存在 C:\Windows\System32\config 系统目录下，用于记录软件配置、键值，而游戏存档、文档等数据文件通常分散在用户文件夹（如 AppData、Documents）中。
+>注册表是Windows系统用于存储硬件、软件配置和用户设置的中央数据库，实时影响系统运行；\
+>而存档（Archive）是指将文件、数据归档保存，侧重于历史数据备份或持久化存储，不直接参与系统当前运行。注册表是“配置数据”，存档是“数据文件”。
+
+>注册表数据主要存在 C:\Windows\System32\config 系统目录下\
+>用于记录软件配置、键值，而游戏存档、文档等数据文件通常分散在用户文件夹（如 AppData、Documents）中。
