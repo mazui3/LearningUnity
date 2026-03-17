@@ -8,6 +8,36 @@
 
 EditorWindow是inherited unity这个自带的class制作的，应该。
 
+[一切从这里开始](https://docs.unity3d.com/cn/2021.3/Manual/UIE-HowTo-CreateEditorWindow.html)
 ```cs
+public class WindowMenu
+{
+
+  [MenuItem("Window/游戏/添加事件")]
+  public static void AddGameEvent()
+  {
+    GameObject obj = Selection.activeGameObject;
+    if (obj == null)
+    {
+        EditorUtility.DisplayDialog("警告", "请选择游戏棋盘对象", "确定");
+        return;
+    }
+    BoardLogic bl = obj.GetComponent<BoardLogic>();
+    if (bl == null)
+    {
+        EditorUtility.DisplayDialog("警告", "请选择游戏棋盘对象", "确定");
+        return;
+    }
+    Rect wr = new Rect(200,200,800,800);//俺觉得有点小
+    EventListWindow w =
+        (EventListWindow) UnityEditor.EditorWindow.GetWindowWithRect(typeof(EventListWindow), wr, true,
+            "eventList");
+    w.mTargetObject = obj;
+    w.init();
+    w.Show();
+
+  }
+
+}
 
 ```
