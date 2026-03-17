@@ -12,7 +12,6 @@ EditorWindow是inherited unity这个自带的class制作的，应该。
 ```cs
 public class WindowMenu
 {
-
   [MenuItem("Window/游戏/添加事件")]
   public static void AddGameEvent()
   {
@@ -33,11 +32,86 @@ public class WindowMenu
         (EventListWindow) UnityEditor.EditorWindow.GetWindowWithRect(typeof(EventListWindow), wr, true,
             "eventList");
     w.mTargetObject = obj;
-    w.init();
-    w.Show();
-
+    w.Init();//自己写的
+    w.Show();//自带的
   }
-
 }
 
 ```
+
+```cs
+public class EventListWindow : EditorWindow
+{
+  private BoardLogic boardLogic;
+  GameEventEx[] ges = null;
+
+  public void Init()
+  {
+    //读取game events
+    boardLogic = mTargetObject.GetComponent<BoardLogic>();
+    if (boardLogic.m_GameEvent != null)
+    {
+        int cnt = boardLogic.m_GameEvent.Length;
+        ges = new GameEventEx[cnt];
+        for (var i = 0; i < cnt; i++)
+        {
+            ges[i] = new GameEventEx();
+            ges[i] = boardLogic.m_GameEvent[i];
+        }
+    }
+    //ges = mTargetObject.GetComponents<GameEvent>();
+    Array.Sort(ges, (eventA, eventB) => eventA.mIdx.CompareTo(eventB.mIdx));
+  }
+
+  private Vector2 pscroll;
+  private void OnGUI()
+  {
+    pscroll = EditorGUILayout.BeginScrollView(pscroll);
+    //scroll view的内容
+    EditorGUILayout.EndScrollView();
+
+    //窗口加窗口  
+    if(GUILayout.Button("添加事件"))
+    {
+        Rect wr = new Rect(200, 200, 300, 400);
+        addEventWindow aew = (addEventWindow)EditorWindow.GetWindowWithRect(typeof(addEventWindow), wr, true, "添加事件");
+        aew.mTargetObject = mTargetObject;
+        aew.listWindow = this;
+        aew.Init();
+        aew.Show();
+    }
+
+    EditorGUILayout.BeginHorizontal();
+    //一些内容
+    EditorGUILayout.EndHorizontal();
+  }
+}
+```
+
+把内容从编辑器保存到prefab中。
+```cs
+//serializable -> 应该是手动连上的
+public GameObject mTargetObject;
+
+//在AddEventWindow class下的值
+string msg = "";
+
+private void OnGUI()
+{
+  //编辑时读取
+  msg = EditorGUILayout.TextArea(msg, GUILayout.Height(50));
+}
+
+private void AddEvent()
+{
+  GameEventEx ge = new GameEventEx();
+  ge.m_msgContent = msg;
+  //ge assign to mDatas
+
+  //用mTargetObject传的
+  BoardLogic bo = mTargetObject.GetComponent<BoardLogic>();
+  bo.m_GameEvent = mDatas;
+}
+```
+
+不过它是Modify和Add写了两个Editor Window。
